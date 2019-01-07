@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 // setup schema
 const contactSchema = mongoose.Schema({
     name: {
@@ -17,8 +17,8 @@ const contactSchema = mongoose.Schema({
     }
 });
 
-// export econtact model
-export default contactSchema;
+// export contact model
+module.exports = mongoose.model('contact',contactSchema);
 
 // module.exports.get = function (callback, limit) {
 //     Contact.find(callback).limit(limit);

@@ -1,11 +1,11 @@
 // import express
-import express from 'express';
+const express = require('express');
 // import body parser
-import bodyParser from 'body-parser';
+const bodyParser = require('body-parser');
 // import mongoose
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 // import routes
-import apiContact from './contact/contact-routes';
+const apiContact = require('./contact/contact-routes');
 
 // initialize the app
 const app = express();

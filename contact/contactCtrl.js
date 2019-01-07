@@ -1,9 +1,5 @@
-// import mongoose
-import mongoose from 'mongoose';
 // import contact model
-import contactSchema from './model';
-
-const Contact = mongoose.model('contact', contactSchema);
+const Contact = require('./model');
 
 // Handle index actions (get all list)
 exports.index = function (req,res) {

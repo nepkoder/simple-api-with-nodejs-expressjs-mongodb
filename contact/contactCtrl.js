@@ -2,16 +2,14 @@
 const Contact = require('./model');
 
 // Handle index actions (get all list)
-exports.index = function
- (req, res) {
+exports.index = function (req, res) {
     // Contact.find({}, (err,contact) => {
     //     if(err) { res.json(err)}
     //     res.json(contact);
     // });
 
     // another way
-    Contact.get(function
-         (err, contact) {
+    Contact.get(function (err, contact) {
         if (err) {
             res.json({
                 status: "error",
@@ -27,8 +25,7 @@ exports.index = function
 };
 
 // handle create contact actions
-exports.new = function
- (req, res) {
+exports.new = function (req, res) {
     let contact = new Contact();
     contact.name = req.body.name ? req.body.name : contact.name;
     contact.gender = req.body.gender;
@@ -36,8 +33,7 @@ exports.new = function
     contact.phone = req.body.phone;
 
     // save the contact and check for errors
-    contact.save(function
-         (err) {
+    contact.save(function (err) {
         if (err) res.json(err);
 
         res.json({
@@ -48,10 +44,8 @@ exports.new = function
 };
 
 // handle view contact  (get by single id)
-exports.view = function
- (req, res) {
-    Contact.findById(req.params.contact_id, function
-         (err, contact) {
+exports.view = function (req, res) {
+    Contact.findById(req.params.contact_id, function (err, contact) {
         if (err) res.send(err);
         res.json({
             message: "Contact details loading...",
@@ -61,10 +55,8 @@ exports.view = function
 };
 
 // handle update contact info (update specific contact)
-exports.update = function
- (req, res) {
-    Contact.findById(req.params.contact_id, function
-         (err, contact) {
+exports.update = function (req, res) {
+    Contact.findById(req.params.contact_id, function (err, contact) {
         if (err) res.send(err);
 
         contact.name = req.body.name ? req.body.name : contact.name;
@@ -72,10 +64,8 @@ exports.update = function
         contact.email = req.body.email;
         contact.phone = req.body.phone;
 
-
         //save the contact and check for errors
-        contact.save(function
-             (err) {
+        contact.save(function (err) {
             if (err) res.json(err);
             res.json({
                 message: "Contact info updated",
@@ -86,12 +76,10 @@ exports.update = function
 };
 
 // Handle delete contact (remove contact)
-exports.delete = function
- (req, res) {
+exports.delete = function (req, res) {
     Contact.remove({
         _id: req.params.contact_id
-    }, function
-     (err, contact) {
+    }, function (err, contact) {
         if (err) res.send(err);
 
         res.json({

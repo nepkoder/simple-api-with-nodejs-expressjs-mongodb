@@ -24,5 +24,5 @@ mongoose.connect('mongodb://localhost/restful-api');
 
 // Launch app the listen to specified port
 app.listen(PORT, () => {
-    console.log(`Running Restful Api on ${PORT}`);
+	// console.log(`Running Restful Api on ${PORT}`);
 });

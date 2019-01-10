@@ -20,6 +20,7 @@ const contactSchema = mongoose.Schema({
 // export contact model
 module.exports = mongoose.model('contact', contactSchema);
 
+
 // module.exports.get = function (callback, limit) {
 //     Contact.find(callback).limit(limit);
 // }

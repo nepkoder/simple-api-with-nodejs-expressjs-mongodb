@@ -1,27 +1,132 @@
 // import contact model
-const Contact = require('./model');
+const contactModel = require('./model');
+
+let contacts = {
+	getAll: function (req,res) {
+		contactModel.find({},(err,result) => {
+			if (err) {
+				res.status(500).json({
+					status: "Error",
+					message: "Database Error: "+err,
+					data: "",
+				});
+			} else {
+				res.status(200).json({
+					status: "Success",
+					message: "All Contact Reterived",
+					data: result
+				});
+			}
+		});
+	},
+
+	getOneById: function (req,res) {
+		contactModel.findById(req.params.id, (err,result) => {
+			if (err) {
+				res.status(500).json({
+					status: "Error",
+					message: "Database Error: "+err,
+					data: ""
+				});
+			} else {
+				res.status(200).json({
+					status: "Success",
+					message: "One Contact Reterieved",
+					data: result
+				});
+			}
+		});
+	},
+
+	create: function (req,res) {
+		let contact = new contactModel();
+		contact.name = req.body.name;
+		contact.gender = req.body.gender;
+		contact.email =req.body.email;
+		contact.phone=req.body.phone;
+
+		contact.save( (err) => {
+			if(err) {
+				res.status(500).json({
+					status: "Error",
+					message: "Database Error: "+err
+				});
+			} else {
+				res.status(200).json({
+					status: "Success",
+					message: "Data Successfully Inserted"
+				});
+			}
+		});
+	},
+
+	update: function (req,res) {
+		contactModel.findById(req.params.id, (err,result) => {
+			if(err) {
+				res.status(500).json({
+					status: "Error",
+					message: "Database Error: "+err
+				});
+			} else {
+				res.status(200).json({
+					status: "Success",
+					message: "Data Successfully Deleted",
+					data: result
+				});
+			}
+		});
+	}
+
+
+};
 
 // Handle index actions (get all list)
 exports.index = function (req, res) {
-	// Contact.find({}, (err,contact) => {
-	//     if(err) { res.json(err)}
-	//     res.json(contact);
+
+	Contact.find(function (err, docs) {
+		if (err) {
+			res.status(500).json({
+				status: "Error",
+				message: "Database Error "+err,
+				data: ""
+			});
+		} else {
+			res.status(200).json({
+				status: 'Success',
+				message: "Success",
+				data: docs
+			});
+		}
+	});
+
+	// Contact.find({}, (err,result) => {
+	// 	if (err) {
+	// 		res.json({
+	// 			status: "Error",
+	// 			message: err
+	// 		});
+	// 	}
+	// 	res.json({
+	// 		status: "Success",
+	// 		message: "Data Retrived All",
+	// 		data: result
+	// 	});
 	// });
 
 	// another way
-	Contact.get(function (err, contact) {
-		if (err) {
-			res.json({
-				status: 'error',
-				message: err,
-			});
-		}
-		res.json({
-			status: 'success',
-			message: 'Contact retrieved successfully',
-			data: contact
-		});
-	});
+	// Contact.get(function (err, contact) {
+	// 	if (err) {
+	// 		res.json({
+	// 			status: 'error',
+	// 			message: err,
+	// 		});
+	// 	}
+	// 	res.json({
+	// 		status: 'success',
+	// 		message: 'Contact retrieved successfully',
+	// 		data: contact
+	// 	});
+	// });
 };
 
 // handle create contact actions
@@ -79,7 +184,7 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
 	Contact.remove({
 		_id: req.params.contact_id
-	}, function (err, contact) {
+	}, function (err) {
 		if (err) res.send(err);
 
 		res.json({

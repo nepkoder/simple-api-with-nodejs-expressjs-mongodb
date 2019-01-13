@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 // setup schema
-const contactSchema = mongoose.Schema({
+let contactSchema = new Schema({
 	name: {
 		type: String,
 		required: true
@@ -18,7 +20,7 @@ const contactSchema = mongoose.Schema({
 });
 
 // export contact model
-module.exports = mongoose.model('contact', contactSchema);
+module.exports = mongoose.model('myCollection', contactSchema);
 
 
 // module.exports.get = function (callback, limit) {

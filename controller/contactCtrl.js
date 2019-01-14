@@ -2,15 +2,16 @@
 const contactModel = require('../model/contact');
 
 let contacts = {
-	getAll: function (req,res) {
-		contactModel.find({},(err,result) => {
+	getAll: function (req, res) {
+		contactModel.find({}, (err, result) => {
 			if (err) {
 				res.status(500).json({
 					status: "Error",
-					message: "Database Error: "+err,
+					message: "Database Error: " + err,
 					data: "",
 				});
 			} else {
+				console.log(result);
 				res.status(200).json({
 					status: "Success",
 					message: "All Contact Reterived",
@@ -20,12 +21,12 @@ let contacts = {
 		});
 	},
 
-	getOneById: function (req,res) {
-		contactModel.findById(req.params.id, (err,result) => {
+	getOneById: function (req, res) {
+		contactModel.findById(req.params.id, (err, result) => {
 			if (err) {
 				res.status(500).json({
 					status: "Error",
-					message: "Database Error: "+err,
+					message: "Database Error: " + err,
 					data: ""
 				});
 			} else {
@@ -38,18 +39,18 @@ let contacts = {
 		});
 	},
 
-	create: function (req,res) {
+	create: function (req, res) {
 		let contact = new contactModel();
 		contact.name = req.body.name;
 		contact.gender = req.body.gender;
-		contact.email =req.body.email;
-		contact.phone=req.body.phone;
+		contact.email = req.body.email;
+		contact.phone = req.body.phone;
 
-		contact.save( (err) => {
-			if(err) {
+		contact.save((err) => {
+			if (err) {
 				res.status(500).json({
 					status: "Error",
-					message: "Database Error: "+err
+					message: "Database Error: " + err
 				});
 			} else {
 				res.status(200).json({
@@ -60,14 +61,16 @@ let contacts = {
 		});
 	},
 
-	update: function (req,res) {
-		contactModel.findById(req.params.id, (err,result) => {
-			if(err) {
+	update: function (req, res) {
+		contactModel.findById(req.params.id, (err, result) => {
+			if (err) {
 				res.status(500).json({
 					status: "Error",
-					message: "Database Error: "+err
+					message: "Database Error: " + err,
+					data: ""
 				});
 			}
+
 			result.name = req.body.name;
 			result.gender = req.body.gender;
 			result.email = req.body.email;
@@ -75,30 +78,29 @@ let contacts = {
 
 			// save the result
 			result.save((err) => {
-				if(err) {
+				if (err) {
 					res.status(500).json({
 						status: "Error",
-						message: "Database Error: "+err
+						message: "Database Error: " + err
 					});
 				} else {
 					res.status(200).json({
 						status: "Success",
-						message: "Successfully updated.",
-						data: result
+						message: "Successfully updated."
 					});
 				}
 			});
 		});
 	},
 
-	delete: function(req,res) {
+	delete: function (req, res) {
 		contactModel.remove({
 			_id: req.params.id
 		}, (err) => {
-			if(err) {
+			if (err) {
 				res.status(500).json({
 					status: "Error",
-					message: "Database Error: "+err
+					message: "Database Error: " + err
 				});
 			} else {
 				res.status(200).json({

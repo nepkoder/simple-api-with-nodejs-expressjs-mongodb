@@ -14,8 +14,10 @@ const config = require('./config/config');
 /* Start APP initialization */
 // initialize the app
 const app = express();
+let db;
 // setup server port
 const PORT = process.env.PORT || 5000;
+
 // configure bodyparser to handle POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -45,18 +47,15 @@ app.use( (req,res,next) => {
 });
 
 // connect to mongoose and set connection variable
-// mongoose.Promise = global.Promise;
-const uri = 'mongodb://localhost/restful-api';
-mongoose.connect(uri);
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console,'connection error'));
-db.on('open', () => {
-	console.log("MongoDB is connected");
+mongoose.connect(config.mongo.url, (err,database) => {
+	if(err) {
+		console.log(err);
+		process.exit(1);
+	}
+	// save database object from callback for reuse.
+	db = database;
+	console.log("Database Connection Ready");
 });
-
-/* config */
-
 
 // Launch app the listen to specified port
 app.listen(PORT, () => {

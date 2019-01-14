@@ -60,8 +60,41 @@ let contacts = {
 		});
 	},
 
-	delete: function (req,res) {
+	update: function (req,res) {
 		contactModel.findById(req.params.id, (err,result) => {
+			if(err) {
+				res.status(500).json({
+					status: "Error",
+					message: "Database Error: "+err
+				});
+			}
+			result.name = req.body.name;
+			result.gender = req.body.gender;
+			result.email = req.body.email;
+			result.phone = req.body.phone;
+
+			// save the result
+			result.save((err) => {
+				if(err) {
+					res.status(500).json({
+						status: "Error",
+						message: "Database Error: "+err
+					});
+				} else {
+					res.status(200).json({
+						status: "Success",
+						message: "Successfully updated.",
+						data: result
+					});
+				}
+			});
+		});
+	},
+
+	delete: function(req,res) {
+		contactModel.remove({
+			_id: req.params.id
+		}, (err) => {
 			if(err) {
 				res.status(500).json({
 					status: "Error",
@@ -70,13 +103,11 @@ let contacts = {
 			} else {
 				res.status(200).json({
 					status: "Success",
-					message: "Data Successfully Deleted",
-					data: result
+					message: "Successfully Deleted"
 				});
 			}
 		});
 	}
-
 
 };
 

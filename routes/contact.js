@@ -3,7 +3,7 @@
 const router = require('express').Router();
 
 // import contact controller
-const contactController = require('./contactCtrl');
+const contactController = require('../controller/contactCtrl');
 
 // Contact routes
 router.get('/api/contacts/', contactController.getAll);

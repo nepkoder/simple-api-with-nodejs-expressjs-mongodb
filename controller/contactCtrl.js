@@ -1,5 +1,5 @@
 // import contact model
-const contactModel = require('./model');
+const contactModel = require('../model/contact');
 
 let contacts = {
 	getAll: function (req,res) {

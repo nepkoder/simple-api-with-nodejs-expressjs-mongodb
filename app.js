@@ -6,10 +6,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 // import routes
-const apiContact = require('./contact/contact-routes');
+const apiContact = require('./routes/contact');
 
 // file includes
-const config = require('./config');
+const config = require('./config/config');
 
 /* Start APP initialization */
 // initialize the app

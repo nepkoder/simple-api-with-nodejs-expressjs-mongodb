@@ -12,7 +12,6 @@ router.post('/api/contact/', contactController.create);
 router.get('/api/contacts/:id', contactController.getOneById);
 router.put('/api/contact/:id',contactController.update);
 router.delete('/api/contact/:id',contactController.delete);
-
 // router.route('/contacts')
 // 	.get(contactController.index)
 // 	.post(contactController.new);

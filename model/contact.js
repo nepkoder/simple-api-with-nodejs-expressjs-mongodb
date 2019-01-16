@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 let contactSchema = new Schema({
 	name: {
 		type: String,
-		// required: true
+		required: true
 	},
 	email: {
 		type: String,
-		// required: true
+		required: true
 	},
 	gender: String,
 	phone: String,
@@ -20,4 +20,4 @@ let contactSchema = new Schema({
 });
 
 // export contact model
-module.exports = mongoose.model('myCollection', contactSchema);
+module.exports = mongoose.model('contacts', contactSchema);

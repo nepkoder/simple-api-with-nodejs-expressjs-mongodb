@@ -8,7 +8,7 @@ let contacts = {
 				res.status(500).json({
 					status: "Error",
 					message: "Database Error: " + err,
-					data: "",
+					data: null,
 				});
 			} else {
 				console.log(result);
@@ -27,7 +27,7 @@ let contacts = {
 				res.status(500).json({
 					status: "Error",
 					message: "Database Error: " + err,
-					data: ""
+					data: null
 				});
 			} else {
 				res.status(200).json({
@@ -40,7 +40,7 @@ let contacts = {
 	},
 
 	create: function (req, res) {
-		let contact = new contactModel();
+		const contact = new contactModel();
 		contact.name = req.body.name;
 		contact.gender = req.body.gender;
 		contact.email = req.body.email;
@@ -67,7 +67,7 @@ let contacts = {
 				res.status(500).json({
 					status: "Error",
 					message: "Database Error: " + err,
-					data: ""
+					data: null
 				});
 			}
 
